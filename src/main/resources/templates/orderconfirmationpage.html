@@ -1,0 +1,11 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <h1>This is the redirected page</h1>
+</head>
+<body>
+
+<!--/*@thymesVar id="user" type="controllers.HelloController"*/-->
+<h2 th:text="'Bye, ' + ${user} + '!'"></h2>
+</body>
+</html>
