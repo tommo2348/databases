@@ -6,11 +6,9 @@
     <h1>This is the redirected page</h1>
 </head>
 <body>
-<h1>Product catalog</h1>
-<div th:each="redirectpage: ${redirectpage}">
-    <li th:text="${redirectpage.name}"></li>
-    <li th:text="${product.description}"></li>
-    <li th:text="${product.price}"></li>
+<h1>Attendees</h1>
+<div th:each="userInfo: ${usersInfo}">
+    <li th:text="${userInfo.firstname}"></li>
 
 </div>
 

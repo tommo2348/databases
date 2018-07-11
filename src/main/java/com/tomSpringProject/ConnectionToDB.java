@@ -1,7 +1,10 @@
 package com.tomSpringProject;
 
+import com.tomSpringProject.demo.entities.Person;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ConnectionToDB {
@@ -12,23 +15,23 @@ public class ConnectionToDB {
     private Connection connection = null;
 
 
-    public List<String> connectingToDb() throws SQLException{
+    public List<Person> connectingToDb() throws SQLException{
 
-        List<String> listOfusersInfo = new ArrayList<>();
+        List<Person> listOfusersInfo = new ArrayList<>();
         try{
             connection = DriverManager.getConnection(LIVE_CONNECTION,USERNAME,PASSWORD);
 
             Statement statement = connection.createStatement();
 
-            ResultSet usersInfo = statement.executeQuery("SELECT name , email, number , location FROM users WHERE email = '@!'");
+            ResultSet usersInfo = statement.executeQuery("SELECT name , email, number , location FROM users");
 
             while (usersInfo.next()){
-                listOfusersInfo.add(usersInfo.getString(0));
-                listOfusersInfo.add(usersInfo.getString(1));
-                listOfusersInfo.add(usersInfo.getString(2));
+                String name = usersInfo.getString(1);
+                String email = usersInfo.getString(2);
+                long number = usersInfo.getLong(3);
+                listOfusersInfo.add(new Person(name, null, email, number, Collections.emptyList()));
             }
 
-            getUsersInfo(listOfusersInfo);
 
         }catch(Exception e){
             System.out.println("Connection to database has failed");
@@ -41,7 +44,11 @@ public class ConnectionToDB {
 
     }
 
-    private List<String> getUsersInfo(List<String> listOfusersInfo) {
-
+    private String getUsersInfo(List<String> listOfusersInfo) {
+    StringBuilder stringBuilder = new StringBuilder();
+    for(String info:listOfusersInfo){
+        stringBuilder.append(info);
+    }
+     return stringBuilder.toString();
     }
 }
